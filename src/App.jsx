@@ -3,6 +3,7 @@ import { useState } from 'react'
 // import viteLogo from '/vite.svg'
 import './App.css'
 import Navbar from './components/Navbar'
+import TextForm from './components/TextForm'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -10,6 +11,9 @@ function App() {
   return (
     <>
     <Navbar title="FirstReactApp" aboutText="FirstApp About" />
+    <div className="container my-3">
+      <TextForm heading="Enter the text value here"/>
+    </div>
     </>
   )
 }
