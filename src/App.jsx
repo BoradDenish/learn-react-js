@@ -4,6 +4,7 @@ import { useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import TextForm from './components/TextForm'
+import About from './components/About'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -12,7 +13,8 @@ function App() {
     <>
     <Navbar title="FirstReactApp" aboutText="FirstApp About" />
     <div className="container my-3">
-      <TextForm heading="Enter the text value here"/>
+      {/* <TextForm heading="Enter the text value here"/> */}
+      <About />
     </div>
     </>
   )
