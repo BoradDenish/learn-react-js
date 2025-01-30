@@ -4,15 +4,18 @@ export default function TextForm(props) {
     const handleUpClick = () => {
         let newUpText = text.toUpperCase();
         setText(newUpText);
+        props.showAlert("Convert to uppercase!", "success");
     };
 
     const handleLoClick = () => {
         let newLoText = text.toLowerCase();
         setText(newLoText);
+        props.showAlert("Convert to lowercase!", "success");
     };
 
     const handleClearClick = () => {
         setText("");
+        props.showAlert("Clear text!", "success");
     };
 
     const handleSentenceCase = () => {
@@ -29,6 +32,7 @@ export default function TextForm(props) {
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
         setText(newCapitalizedText);
+        props.showAlert("Text capitalize!", "success");
     };
 
     const handleAlternatingCase = () => {
@@ -68,21 +72,28 @@ export default function TextForm(props) {
 
     const handleCopy = () => {
         navigator.clipboard.writeText(text);
-        alert('Text copied to clipboard!');
+        // alert('Text copied to clipboard!');
+        props.showAlert("Text copied to clipboard!", "success");
     };
 
     const handleOnChange = (event) => {
         setText(event.target.value);
     };
 
+    const handleExtraSpace = () => {
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(" "));
+        props.showAlert("Remove extra spaces", "success");
+    }
+
     const [text, setText] = useState("");
 
     return (
         <>
-            <div className='container'>
+            <div className='container' style={{color: props.mode === "dark" ? "white" : "#042743"}}>
                 <h1>{props.heading}</h1>
                 <div className="mb-3">
-                    <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+                    <textarea className="form-control green-900 " value={text} style={{backgroundColor: props.mode === "dark" ? "#042743" : "white", color: props.mode === "dark" ? "white" : "#042743"}} onChange={handleOnChange} id="myBox" rows="8"></textarea>
                 </div>
                 <h2>Text Actions</h2>
                 <div className="row g-2">
@@ -95,6 +106,7 @@ export default function TextForm(props) {
                         <button className="btn btn-primary m-1" onClick={handleAlternatingCase}>Alternating Case</button>
                         <button className="btn btn-primary m-1" onClick={handleTitleCase}>Title Case</button>
                         <button className="btn btn-primary m-1" onClick={handleInverseCase}>Inverse Case</button>
+                        <button className="btn btn-primary m-1" onClick={handleExtraSpace}>Remove extra space</button>
                     </div>
 
                     {/* Action Buttons */}
@@ -105,7 +117,7 @@ export default function TextForm(props) {
                     </div>
                 </div>
             </div>
-            <div className="container my-3">
+            <div className="container my-3" style={{color: props.mode === "dark" ? "white" : "#042743"}}>
                 <h1>Your text summary</h1>
                 <p>{text.split(/\s+/).filter((element) => element.length !== 0).length} words and {text.length} characters</p>
                 <p>{0.008 * text.split(/\s+/).filter((element) => element.length !== 0).length} Minutes read</p>
