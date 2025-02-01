@@ -93,27 +93,27 @@ export default function TextForm(props) {
             <div className='container' style={{color: props.mode === "dark" ? "white" : "#042743"}}>
                 <h1>{props.heading}</h1>
                 <div className="mb-3">
-                    <textarea className="form-control green-900 " value={text} style={{backgroundColor: props.mode === "dark" ? "#042743" : "white", color: props.mode === "dark" ? "white" : "#042743"}} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+                    <textarea className="form-control green-900 " value={text} style={{backgroundColor: props.mode === "dark" ? "#0f4775" : "white", color: props.mode === "dark" ? "white" : "#042743"}} onChange={handleOnChange} id="myBox" rows="5"></textarea>
                 </div>
                 <h2>Text Actions</h2>
                 <div className="row g-2">
                     {/* Text Transformation Buttons */}
                     <div className="col-12 col-md-6 d-flex flex-wrap">
-                        <button className="btn btn-primary m-1" onClick={handleUpClick}>Uppercase</button>
-                        <button className="btn btn-primary m-1" onClick={handleLoClick}>Lowercase</button>
-                        <button className="btn btn-primary m-1" onClick={handleSentenceCase}>Sentence Case</button>
-                        <button className="btn btn-primary m-1" onClick={handleCapitalizedCase}>Capitalized Case</button>
-                        <button className="btn btn-primary m-1" onClick={handleAlternatingCase}>Alternating Case</button>
-                        <button className="btn btn-primary m-1" onClick={handleTitleCase}>Title Case</button>
-                        <button className="btn btn-primary m-1" onClick={handleInverseCase}>Inverse Case</button>
-                        <button className="btn btn-primary m-1" onClick={handleExtraSpace}>Remove extra space</button>
+                        <button disabled={text.length===0} className="btn btn-primary m-1" onClick={handleUpClick}>Uppercase</button>
+                        <button disabled={text.length===0} className="btn btn-primary m-1" onClick={handleLoClick}>Lowercase</button>
+                        <button disabled={text.length===0} className="btn btn-primary m-1" onClick={handleSentenceCase}>Sentence Case</button>
+                        <button disabled={text.length===0} className="btn btn-primary m-1" onClick={handleCapitalizedCase}>Capitalized Case</button>
+                        <button disabled={text.length===0} className="btn btn-primary m-1" onClick={handleAlternatingCase}>Alternating Case</button>
+                        <button disabled={text.length===0} className="btn btn-primary m-1" onClick={handleTitleCase}>Title Case</button>
+                        <button disabled={text.length===0} className="btn btn-primary m-1" onClick={handleInverseCase}>Inverse Case</button>
+                        <button disabled={text.length===0} className="btn btn-primary m-1" onClick={handleExtraSpace}>Remove extra space</button>
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="col-12 col-md-6 d-flex flex-wrap">
-                        <button className="btn btn-success m-1" onClick={handleDownload}>Download Text</button>
-                        <button className="btn btn-warning m-1" onClick={handleCopy}>Copy to Clipboard</button>
-                        <button className="btn btn-danger m-1" onClick={handleClearClick}>Clear Text</button>
+                    <div className="col-12 col-md-6">
+                        <button disabled={text.length===0} className="btn btn-success m-1" onClick={handleDownload}>Download Text</button>
+                        <button disabled={text.length===0} className="btn btn-warning m-1" onClick={handleCopy}>Copy to Clipboard</button>
+                        <button disabled={text.length===0} className="btn btn-danger m-1" onClick={handleClearClick}>Clear Text</button>
                     </div>
                 </div>
             </div>
