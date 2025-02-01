@@ -26,10 +26,12 @@ function App() {
       setMode('dark');
       document.body.style.backgroundColor = "#042743";
       showAlert("Dark mode has been enable", "success");
+      document.title = "Textutils - Dark Mode";
     }else{
       setMode('light');
       document.body.style.backgroundColor = "white";
       showAlert("Light mode has been enable", "success");
+      document.title = "Textutils - Light Mode";
     }
   }
   return (
