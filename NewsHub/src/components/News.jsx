@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NewsItem from './NewsItem';
 import Spinner from '../../public/loader.gif'
+import { useParams } from 'react-router';
 
 const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
@@ -14,22 +15,42 @@ export default class News extends Component {
       loading: false,
       page: 1,
       pageSize: 12,
-      totalResults: 0
+      totalResults: 0,
+      country: "in",
+      category: "general"
     }
   }
 
   async componentDidMount(){
-    console.log("did mount");
+    const { category } = this.props.match.params;
+    if (category) {
+      this.setState({ category: category });
+    }
     this.fetchArticles();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // Check if category has changed and if so, fetch new articles
+    if (prevProps.match.params.category !== this.props.match.params.category) {
+      this.setState({ category: this.props.match.params.category }, this.fetchArticles);
+    }
+
+    // Check if page has changed and fetch articles again
+    if (prevState.page !== this.state.page) {
+      this.fetchArticles();
+    }
+  }
+
+
   fetchArticles = async () => {
     const { page, pageSize } = this.state;
+    const { country, category } = this.props;
+
 
     // Show loader before the API call
     this.setState({ loading: true });
 
-    let url = `https://newsapi.org/v2/top-headlines?country=us&page=${page}&pageSize=${pageSize}&apiKey=${apiKey}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&page=${page}&pageSize=${pageSize}&apiKey=${apiKey}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     setTimeout (() => {
