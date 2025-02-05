@@ -32,18 +32,13 @@ export default class News extends Component {
     let url = `https://newsapi.org/v2/top-headlines?country=us&page=${page}&pageSize=${pageSize}&apiKey=${apiKey}`;
     let data = await fetch(url);
     let parsedData = await data.json();
-    console.log(parsedData); // Log the full response from the API
-
-    console.log("Total Results:", parsedData.totalResults);
-    console.log("Articles Count:", parsedData.articles.length);
     setTimeout (() => {
-
       this.setState({
         articles: parsedData.articles,
         totalResults: parsedData.totalResults,
         loading: false
       });
-    },2000)
+    },1000)
   }
 
   handleNextPage = () => {
@@ -75,9 +70,7 @@ export default class News extends Component {
         
         {loading && (
           <div className="flex justify-center items-center py-4">
-            <div className="spinner-border text-blue-500">
-              <span className="sr-only"><img src={} alt="" /></span>
-            </div>
+            <img src="/loader.gif" alt="Loading..." className="w-24 h-20" />
           </div>
         )}
 
