@@ -84,25 +84,30 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedLanguage: 'en',
-            selectedCountry: 'in'
+            selectedCountry: 'us',
+            selectedCategory: "General"
         };
     }
 
-    handleLanguageChange = (event) => {
-        const selectedLanguage = event.target.value;
-        this.setState({ selectedLanguage });
-        this.props.onLanguageChange(selectedLanguage);
-    };
+    // handleLanguageChange = (event) => {
+    //     const selectedLanguage = event.target.value;
+    //     this.setState({ selectedLanguage });
+    //     this.props.onLanguageChange(selectedLanguage);
+    // };
 
     handleCountryChange = (event) => {
         const selectedCountry = event.target.value;
         this.setState({ selectedCountry });
-        this.props.onCountryChange(selectedCountry);
+        if (this.props.onCountryChange) {
+            this.props.onCountryChange(selectedCountry);
+        }
     };
 
     handleCategoryClick = (category) => {
-        this.props.onCategoryChange(category.toLowerCase());
+        this.setState({ selectedCategory: category });
+        if (this.props.onCategoryChange) {
+            this.props.onCategoryChange(category.toLowerCase());
+        }
     };
     
     render() {
@@ -113,12 +118,21 @@ export default class Header extends Component {
                     <ul className="hidden md:flex space-x-6">
                         {this.categories.map((category, index) => (
                             <li key={index}>
-                                <Link to={`/category/${category.toLowerCase()}`} className="hover:text-gray-400" onClick={() => this.props.onCategoryChange(category.toLowerCase())}>
+                                <Link 
+                                    to={`/category/${category.toLowerCase()}`} 
+                                    onClick={() => this.handleCategoryClick(category)}
+                                    className={`px-4 py-2 rounded-md transition-all ${
+                                        this.state.selectedCategory === category
+                                            ? "bg-white text-blue-600 font-bold"
+                                            : "hover:bg-gray-500"
+                                    }`}
+                                >
                                     {category}
                                 </Link>
                             </li>
                         ))}
                     </ul>
+
                     {/* Country Dropdown */}
                     <select
                         className="bg-white text-black px-3 py-1 rounded"
@@ -131,19 +145,6 @@ export default class Header extends Component {
                         </option>
                         ))}
                     </select>
-
-                    {/* Language Dropdown */}
-                    {/* <select
-                        className="bg-white text-black px-3 py-1 rounded"
-                        value={this.state.selectedLanguage}
-                        onChange={this.handleLanguageChange}
-                    >
-                        {this.languages.map((lang) => (
-                        <option key={lang.code} value={lang.code}>
-                            {lang.name}
-                        </option>
-                        ))}
-                    </select> */}
                 </div>
             </nav>
         )
