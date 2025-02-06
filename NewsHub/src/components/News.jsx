@@ -83,12 +83,16 @@ class News extends Component {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {articles.map((element) => (
               <div key={element.url} className="size-auto flex">
+                {console.log(element.author)}
                 <NewsItem
                   className="transition duration-300 ease-in-out transform hover:bg-blue-100 flex flex-col"
                   title={element.title}
                   description={element.description}
                   imageUrl={element.urlToImage}
                   newsUrl={element.url}
+                  author={element.author}
+                  date={element.publishedAt}
+                  source={element.source.name}
                 />
               </div>
             ))}
