@@ -21,11 +21,11 @@ class News extends Component {
       totalResults: 0,
     };
   }
-
+  
   componentDidMount() {
     this.fetchArticles();
   }
-
+  
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.category !== this.props.category || 
@@ -33,6 +33,7 @@ class News extends Component {
       prevState.page !== this.state.page
     ) {
       this.fetchArticles();
+      document.title = `${this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}`
     }
   }
 
@@ -71,7 +72,7 @@ class News extends Component {
 
     return (
       <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold text-center mb-6">Top Headlines - {this.props.category}</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">Top Headlines - {this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}</h1>
 
         {loading && (
           <div className="flex justify-center items-center py-4">
@@ -83,7 +84,6 @@ class News extends Component {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {articles.map((element) => (
               <div key={element.url} className="size-auto flex">
-                {console.log(element.author)}
                 <NewsItem
                   className="transition duration-300 ease-in-out transform hover:bg-blue-100 flex flex-col"
                   title={element.title}
