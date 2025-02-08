@@ -46,7 +46,7 @@ export default class App extends Component {
                 element={<News country={this.state.country} />} // FIX: Category will be handled inside News.jsx
               />
             </Routes>
-            <p className="text-gray-600 text-center mt-2">
+            <p className="text-gray-600 text-center pb-3 mt-2">
               Your trusted source for the latest news.
             </p>
           </main>

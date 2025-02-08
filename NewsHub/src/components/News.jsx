@@ -18,7 +18,7 @@ class News extends Component {
       articles: [],
       loading: true,
       page: 1,
-      pageSize: 7,
+      pageSize: 10,
       totalResults: 0,
     };
   }
@@ -108,9 +108,8 @@ class News extends Component {
   render() {
     const { articles, page, pageSize, totalResults, loading } = this.state;
     const totalPages = Math.ceil(totalResults / pageSize);
-    const hasMore = articles.length !== totalResults;
+    const hasMore = articles.length + 1 < totalResults;
     
-    console.log(hasMore, totalResults, articles.length)
     return (
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold text-center mb-6">Top Headlines - {this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}</h1>
@@ -125,12 +124,19 @@ class News extends Component {
           dataLength={articles.length}
           next={this.fetchMoreData}
           hasMore={hasMore}
-          loader={hasMore ? <img src={Spinner} alt="Loading..." className="w-16 h-16 mx-auto" /> : []}
+          loader={
+            hasMore ? (
+              <div className="flex justify-center items-center py-4">
+                <img src={Spinner} alt="Loading..." className="w-16 h-16 mx-auto" />
+              </div>
+            ) : null
+          }
         >
 
           {/* {!loading && ( */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {articles.map((element) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10 py-4">
+              {articles.length > 0 ? (
+                articles.map((element) => (
                 <div key={element.url} className="size-auto flex">
                   <NewsItem
                     className="transition duration-300 ease-in-out transform hover:bg-blue-100 flex flex-col"
@@ -143,7 +149,10 @@ class News extends Component {
                     source={element.source.name}
                   />
                 </div>
-              ))}
+              ))
+            ) : !loading ? (
+              <p className="text-center text-gray-500 col-span-full">No articles available.</p>
+            ) : null}
             </div>
           {/* )} */}
 
