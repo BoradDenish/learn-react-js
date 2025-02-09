@@ -57,23 +57,27 @@ class News extends Component {
     // this.setState({ loading: true });
 
     try {
+      this.props.setProgress(10);
       let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&page=${page}&pageSize=${pageSize}&apiKey=${apiKey}`;
       let data = await fetch(url);
+      this.props.setProgress(30);
       let parsedData = await data.json();
-
+      
       console.log("Fetched data:", parsedData);
-
+      
       if (!parsedData.articles || parsedData.articles.length === 0) {
         // console.warn("No more articles to fetch.");
         this.setState({ loading: false });
         return;
       }
-
+      
+      this.props.setProgress(70);
       this.setState((prevState) => ({
         articles: [...prevState.articles, ...parsedData.articles],
         totalResults: parsedData.totalResults,
         loading: false,
       }));
+      this.props.setProgress(100);
     } catch (error) {
       console.error("Error fetching data:", error);
       this.setState({ loading: false });

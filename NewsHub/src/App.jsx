@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import './index.css';
 import News from './components/News';
+import LoadingBar from "react-top-loading-bar";
 
 export default class App extends Component {
   constructor(props) {
@@ -27,10 +28,23 @@ export default class App extends Component {
     this.setState({ category: newCategory });
   };
 
+  state = {
+    progress: 0
+  }
+
+  setProgress = (progress) => {
+    this.setState({progress: progress})
+  }
+
   render() {
     return (
       <Router>
         <div className="flex flex-col min-h-screen">
+          <LoadingBar
+            height={3}
+            color="#f11946"
+            progress={this.state.progress}
+          />
           <Header 
             onCountryChange={this.handleCountryChange} 
             onCategoryChange={this.handleCategoryChange} 
@@ -39,11 +53,11 @@ export default class App extends Component {
             <Routes>
               <Route 
                 path="/" 
-                element={<News country={this.state.country} category={this.state.category} />} 
+                element={<News setProgress={this.setProgress} country={this.state.country} category={this.state.category} />} 
               />
               <Route 
                 path="/category/:category" 
-                element={<News country={this.state.country} />} // FIX: Category will be handled inside News.jsx
+                element={<News setProgress={this.setProgress} country={this.state.country} />} // FIX: Category will be handled inside News.jsx
               />
             </Routes>
             <p className="text-gray-600 text-center pb-3 mt-2">
