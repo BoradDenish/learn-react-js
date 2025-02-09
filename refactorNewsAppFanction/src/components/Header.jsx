@@ -23,7 +23,7 @@ export default function Header({ onCategoryChange }) {
   };
 
   return (
-    <nav className="bg-blue-600 text-white p-4">
+    <nav className="sticky top-0 z-50 bg-gray-900 text-blue-400 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         <Link className="text-2xl font-bold" to="/">
           NewsApp

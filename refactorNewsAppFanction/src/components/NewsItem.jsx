@@ -3,7 +3,7 @@ import React from 'react'
 export default function NewsItem(props) {
     let { title, description, imageUrl, newsUrl, author, date, source } = props;
     return (
-      <div className="flex flex-col justify-between rounded-2xl overflow-hidden shadow-lg bg-white p-4 transition duration-300 ease-in-out transform hover:bg-blue-100">
+      <div className="flex flex-col justify-between rounded-2xl overflow-hidden shadow-lg bg-white p-4 transition duration-300 ease-in-out transform">
       <div className="relative">
       <span className="absolute -top-2.5 -left-1.5 inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-700/10">
           {source}
@@ -25,7 +25,7 @@ export default function NewsItem(props) {
           href={newsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+          className="inline-block bg-gray-900 text-blue-400 hover:bg-gray-700 font-bold py-2 px-4 rounded-lg"
         >
           Read More
         </a>
